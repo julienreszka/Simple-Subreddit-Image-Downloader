@@ -60,6 +60,6 @@ while :; do
     if [ -z $after ]; then
         break
     fi
-    url="https://www.reddit.com/r/$subreddit/$sort/.json?count=200&after=$after&raw_json=1&t=$top_time"
+    url="https://old.reddit.com/r/$subreddit/$sort/.json?count=200&after=$after&raw_json=1&t=$top_time"
     content=$(curl --retry 3 $url)
 done
