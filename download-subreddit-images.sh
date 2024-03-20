@@ -27,6 +27,12 @@ fi
 
 url="https://old.reddit.com/r/$subreddit/$sort/.json?raw_json=1&t=$top_time"
 content=$(curl $url)
+
+# Check if content is null
+if [ -z "$content" ]; then
+    echo "Content is null, skipping..."
+    continue
+fi
 mkdir -p $subreddit
 i=1
 while :; do
@@ -41,7 +47,9 @@ while :; do
         ext=$(echo -n "${url##*.}" | cut -d '?' -f 1 | sed 's/gif/png/')
         newname=$(echo $name | sed "s/^\///;s/\// /g")_"$subreddit"_$id.$ext
         printf "$i/$limit : $newname\n"
-        curl --retry 3 --no-clobber --output "$subreddit/$newname" $url &>/dev/null &
+        if [ ! -f "$subreddit/$newname" ]; then
+            curl --retry 3 --no-clobber --output "$subreddit/$newname" $url &>/dev/null &
+        fi
         ((a = a + 1))
         ((i = i + 1))
         if [ $i -gt $limit ]; then
