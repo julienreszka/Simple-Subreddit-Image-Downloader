@@ -39,3 +39,11 @@ Examples: ./download-subreddit-images.sh starterpacks new week 10
 ```
 
 Script downloads images to `<subreddit_name>` folder in current directory. If you want to change that, you need to edit destination in rdit.sh for now.
+
+## Pro tip
+
+if you want to find a file name that contains a specific string, you can use the following command:
+
+```bash
+find . -type f -name '*USA*' # find all files that contain USA in their name
+```
